@@ -1,0 +1,89 @@
+.main{
+    width: 1000px;
+margin-right: auto;
+margin-left : auto;
+
+}
+
+
+.nav{
+    margin: 10px auto;
+    width: 1000px;
+}
+
+.td{
+     display: table-cell;
+    vertical-align: middle;
+}
+
+.form-group{
+    margin-right: auto;
+    margin-left : auto;
+    
+}
+
+.post{
+    margin: 15px;
+    background-color: floralwhite;
+    padding: 10px;
+    
+    
+}
+.message{
+    padding: 10px;
+}
+
+.name{
+    
+    padding: 10px;
+    font-weight: 700;
+    color: blueviolet
+}
+
+.uid{
+    padding: 10px
+}
+
+.btn{
+    margin-left : auto;
+}
+
+.list_line_info_container{
+     padding: 10px;
+
+}
+
+.list-line{
+        margin: 25px;
+
+                 background-color: floralwhite;
+
+}
+
+.list_line_link_title{
+    font-size: 30px;
+    padding: 10px;
+    font-weight: 700;
+}
+
+.back{
+    padding-left: 350px;
+}
+.maine_title{
+    margin: 50px;
+    
+}
+
+.delete{
+    color: brown;
+}
+.delete_text{
+    padding: 50px;
+    font-size: 25px
+}
+.delete_button{
+display: flex;  }
+.message_write{
+     padding: 20px 0 0 900px;
+    
+}
