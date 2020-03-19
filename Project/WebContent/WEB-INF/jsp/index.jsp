@@ -20,9 +20,9 @@
 
 			<li class="nav-item"><a class="nav-link" href="Logout">ログアウト</a>
 			</li>
-			<li class="nav-item"><a class="nav-link" href="New">新規スレッド</a>
+			<li class="nav-item"><a class="nav-link" href="NewPost">新規スレッド</a>
 			</li>
-			<li class="nav-item"><a class="nav-link" href="Categoy"
+			<li class="nav-item"><a class="nav-link" href="Category"
 				aria-disabled="true">カテゴリーで探す</a></li>
 			<li class="nav-item">
 				<form action="Search">

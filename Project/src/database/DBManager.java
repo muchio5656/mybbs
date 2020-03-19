@@ -10,7 +10,7 @@ import java.sql.SQLException;
  */
 public class DBManager {
     final private static String URL = "jdbc:mysql://localhost/";
-    final private static String DB_NAME = "favoul";
+    final private static String DB_NAME = "BBS";
     final private static String PARAMETERS = "?useUnicode=true&characterEncoding=utf8";
     final private static String USER = "root";
     final private static String PASS = "password";

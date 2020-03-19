@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ContentFilters</key>
+	<dict/>
+	<key>auto_connect</key>
+	<true/>
+	<key>data</key>
+	<dict>
+		<key>connection</key>
+		<dict>
+			<key>colorIndex</key>
+			<integer>3</integer>
+			<key>database</key>
+			<string>BBS</string>
+			<key>host</key>
+			<string>127.0.0.1</string>
+			<key>kcid</key>
+			<string>-8252542702969608311</string>
+			<key>name</key>
+			<string>Mac_christchurches-map-development</string>
+			<key>rdbms_type</key>
+			<string>mysql</string>
+			<key>sslCACertFileLocation</key>
+			<string></string>
+			<key>sslCACertFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslCertificateFileLocation</key>
+			<string></string>
+			<key>sslCertificateFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslKeyFileLocation</key>
+			<string></string>
+			<key>sslKeyFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>type</key>
+			<string>SPTCPIPConnection</string>
+			<key>useSSL</key>
+			<integer>0</integer>
+			<key>user</key>
+			<string>root</string>
+		</dict>
+		<key>session</key>
+		<dict>
+			<key>connectionEncoding</key>
+			<string>utf8</string>
+			<key>contentFilter</key>
+			<dict/>
+			<key>contentPageNumber</key>
+			<integer>1</integer>
+			<key>contentSelection</key>
+			<data>
+			YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0
+			b3BYJG9iamVjdHMSAAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRk
+			YXRhgAGtCwwZGhscHSEoLDA1OlUkbnVsbNMNDg8QFBhXTlMua2V5
+			c1pOUy5vYmplY3RzViRjbGFzc6MREhOAAoADgASjFRYXgAWABoAI
+			gAxUdHlwZVRyb3dzVGtleXNfECZTZWxlY3Rpb25EZXRhaWxUeXBl
+			UHJpbWFyeUtleWVkRGV0YWlsc9MNDg8eHyCgoIAH0iIjJCVaJGNs
+			YXNzbmFtZVgkY2xhc3Nlc18QE05TTXV0YWJsZURpY3Rpb25hcnmj
+			JCYnXE5TRGljdGlvbmFyeVhOU09iamVjdNIODykroSqACYAL0g8t
+			Li9ZTlMuc3RyaW5ngApSaWTSIiMxMl8QD05TTXV0YWJsZVN0cmlu
+			Z6MxMzRYTlNTdHJpbmdYTlNPYmplY3TSIiM2N15OU011dGFibGVB
+			cnJheaM2ODlXTlNBcnJheVhOU09iamVjdNIiIyY7oiY8WE5TT2Jq
+			ZWN0AAgAEQAaACQAKQAyADcASQBMAFEAUwBhAGcAbgB2AIEAiACM
+			AI4AkACSAJYAmACaAJwAngCjAKgArQDWAN0A3gDfAOEA5gDxAPoB
+			EAEUASEBKgEvATEBMwE1AToBRAFGAUkBTgFgAWQBbQF2AXsBigGO
+			AZYBnwGkAacAAAAAAAACAQAAAAAAAAA9AAAAAAAAAAAAAAAAAAAB
+			sA==
+			</data>
+			<key>contentSortColIsAsc</key>
+			<true/>
+			<key>contentViewport</key>
+			<string>{{0, 0}, {622, 542}}</string>
+			<key>isToolbarVisible</key>
+			<true/>
+			<key>queries</key>
+			<string>CREATE TABLE user(
+id int PRIMARY KEY AUTO_INCREMENT,
+name varchar(256)  NOT NULL,
+user_id int UNIQUE not null,
+password varchar(256)  NOT NULL,
+create_date date NOT NULL,
+update_date date NOT NULL
+)
+
+CREATE TABLE category(
+id int PRIMARY KEY AUTO_INCREMENT,
+category_name varchar(256) NOT NULL,
+)
+
+CREATE TABLE threads(
+id int PRIMARY KEY AUTO_INCREMENT,
+user_name varchar(256) NOT NULL,
+title varchar(256) NOT NULL,
+threads_category_id int NOT NULL,
+create_date date NOT NULL,
+update_date date NOT NULL
+)
+
+CREATE TABLE posts(
+id int PRIMARY KEY AUTO_INCREMENT,
+user_name varchar(256) NOT NULL,
+message text NOT NULL,
+thread_id int NOT NULL,
+create_date date NOT NULL,
+update_date date NOT NULL
+)</string>
+			<key>table</key>
+			<string>category</string>
+			<key>view</key>
+			<string>SP_VIEW_CUSTOMQUERY</string>
+			<key>windowVerticalDividerPosition</key>
+			<real>204</real>
+		</dict>
+	</dict>
+	<key>encrypted</key>
+	<false/>
+	<key>format</key>
+	<string>connection</string>
+	<key>queryFavorites</key>
+	<array/>
+	<key>queryHistory</key>
+	<array>
+		<string>ALTER TABLE category DROP COLUMN text</string>
+		<string>SELECT * FROM user WHERE user_id = "111"</string>
+		<string>ALTER TABLE user DROP INDEX password</string>
+		<string>ALTER TABLE user DROP INDEX name</string>
+		<string>insert into user (name,user_id,password,create_date,update_date)values("1","2","3",NOW(),NOW())</string>
+		<string>insert into user(name,user_id,password,create_date,update_date)values("111","222","333",NOW(),NOW())</string>
+		<string>insert into user(name,user_id,password,create_date,update_date)values("111","111","111",NOW(),NOW())</string>
+		<string>SELECT * FROM user WHERE user_id = "orechan" and password = "111"</string>
+		<string>insert into user (name,user_id,password,create_date,update_date)values("俺ちゃん","orechan","111",NOW(),NOW())</string>
+		<string>insert into user (name,user_id,password)values("俺ちゃん","orechan","111",NOW(),NOW())</string>
+		<string>create table delivery_method(
+id int PRIMARY KEY AUTO_INCREMENT,
+name varchar(256) UNIQUE not null,
+price int not null
+);
+create table item(
+id int PRIMARY KEY AUTO_INCREMENT,
+name varchar(256) NOT NULL,
+detail text NOT NULL,
+price int NOT NULL,
+file_name varchar(256) NOT NULL,
+item_category_id int NOT NULL,
+create_date date NOT NULL
+);
+create table user(
+id int PRIMARY KEY AUTO_INCREMENT,
+name varchar(256) NOT NULL,
+address varchar(256) NOT NULL,
+password varchar(256) NOT NULL,
+birth_date date NOT NULL,
+create_date date NOT NULL
+);
+create table item_category(
+id int PRIMARY KEY AUTO_INCREMENT,
+category varchar(100) NOT NULL
+);
+create table trivia(
+id int PRIMARY KEY AUTO_INCREMENT,
+name varchar(256) NOT NULL,
+detail text NOT NULL,
+item_category_id int NOT NULL
+);
+create table buy(
+id int PRIMARY KEY AUTO_INCREMENT,
+user_id int NOT NULL,
+total_price int NOT NULL,
+delivery_method_id int NOT NULL,
+create_date datetime NOT NULL
+);
+create table buy_detail(
+id int PRIMARY KEY AUTO_INCREMENT,
+buy_id int NOT NULL,
+item_id int NOT NULL
+);
+create table food(
+id int PRIMARY KEY AUTO_INCREMENT,
+name varchar(256) NOT NULL,
+detail text NOT NULL,
+file_name varchar(256) NOT NULL
+);
+create table food_best_much(
+id int PRIMARY KEY AUTO_INCREMENT,
+food_id int NOT NULL,
+item_id int NOT NULL
+)</string>
+		<string>create table user(
+id int PRIMARY KEY AUTO_INCREMENT,
+name varchar(256) NOT NULL,
+address varchar(256) NOT NULL,
+password varchar(256) NOT NULL,
+birth_date date NOT NULL,
+create_date date NOT NULL
+)</string>
+		<string>create table user(
+id int PRIMARY KEY AUTO_INCREMENT,
+name varchar(256) NOT NULL,
+address varchar(256) NOT NULL,
+password varchar(256) NOT NULL,
+birth_date date NOT NULL,
+create_date date NOT NULL
+)
+
+
+
+
+
+create table food(
+id int PRIMARY KEY AUTO_INCREMENT,
+name varchar(256) NOT NULL,
+detail text NOT NULL,
+file_name varchar(256) NOT NULL
+)
+
+create table food_best_much(
+id int PRIMARY KEY AUTO_INCREMENT,
+food_id int NOT NULL,
+item_id int NOT NULL
+)</string>
+		<string>create table user(
+id int PRIMARY KEY AUTO_INCREMENT,
+name varchar(256) NOT NULL,
+address varchar(256) NOT NULL,
+password varchar(256) NOT NULL,
+birth_date date NOT NULL,
+create_date date NOT NULL
+)
+
+
+
+
+
+
+create table buy_detail(
+id int PRIMARY KEY AUTO_INCREMENT,
+buy_id int NOT NULL,
+item_id int NOT NULL
+)
+
+create table food(
+id int PRIMARY KEY AUTO_INCREMENT,
+name varchar(256) NOT NULL,
+detail text NOT NULL,
+file_name varchar(256) NOT NULL
+)
+
+create table food_best_much(
+id int PRIMARY KEY AUTO_INCREMENT,
+food_id int NOT NULL,
+item_id int NOT NULL
+)</string>
+		<string>create table user(
+id int PRIMARY KEY AUTO_INCREMENT,
+name varchar(256) NOT NULL,
+address varchar(256) NOT NULL,
+password varchar(256) NOT NULL,
+birth_date date NOT NULL,
+create_date date NOT NULL
+)
+
+
+
+
+create table buy(
+id int PRIMARY KEY AUTO_INCREMENT,
+user_id int NOT NULL,
+total_price int NOT NULL,
+delivery_method_id int NOT NULL,
+create_date datetime NOT NULL
+)
+
+
+create table buy_detail(
+id int PRIMARY KEY AUTO_INCREMENT,
+buy_id int NOT NULL,
+item_id int NOT NULL
+)
+
+create table food(
+id int PRIMARY KEY AUTO_INCREMENT,
+name varchar(256) NOT NULL,
+detail text NOT NULL,
+file_name varchar(256) NOT NULL
+)
+
+create table food_best_much(
+id int PRIMARY KEY AUTO_INCREMENT,
+food_id int NOT NULL,
+item_id int NOT NULL
+)</string>
+		<string>create table user(
+id int PRIMARY KEY AUTO_INCREMENT,
+name varchar(256) NOT NULL,
+address varchar(256) NOT NULL,
+password varchar(256) NOT NULL,
+birth_date date NOT NULL,
+create_date date NOT NULL
+)
+
+
+
+create table trivia(
+id int PRIMARY KEY AUTO_INCREMENT,
+name varchar(256) NOT NULL,
+detail text NOT NULL,
+item_category_id int NOT NULL
+)
+
+create table buy(
+id int PRIMARY KEY AUTO_INCREMENT,
+user_id int NOT NULL,
+total_price int NOT NULL,
+delivery_method_id int NOT NULL,
+create_date datetime NOT NULL
+)
+
+
+create table buy_detail(
+id int PRIMARY KEY AUTO_INCREMENT,
+buy_id int NOT NULL,
+item_id int NOT NULL
+)
+
+create table food(
+id int PRIMARY KEY AUTO_INCREMENT,
+name varchar(256) NOT NULL,
+detail text NOT NULL,
+file_name varchar(256) NOT NULL
+)
+
+create table food_best_much(
+id int PRIMARY KEY AUTO_INCREMENT,
+food_id int NOT NULL,
+item_id int NOT NULL
+)</string>
+		<string>create table user(
+id int PRIMARY KEY AUTO_INCREMENT,
+name varchar(256) NOT NULL,
+address varchar(256) NOT NULL,
+password varchar(256) NOT NULL,
+birth_date date NOT NULL,
+create_date date NOT NULL
+)
+
+create table item_category(
+id int PRIMARY KEY AUTO_INCREMENT,
+category varchar(100) NOT NULL
+)
+
+create table trivia(
+id int PRIMARY KEY AUTO_INCREMENT,
+name varchar(256) NOT NULL,
+detail text NOT NULL,
+item_category_id int NOT NULL
+)
+
+create table buy(
+id int PRIMARY KEY AUTO_INCREMENT,
+user_id int NOT NULL,
+total_price int NOT NULL,
+delivery_method_id int NOT NULL,
+create_date datetime NOT NULL
+)
+
+
+create table buy_detail(
+id int PRIMARY KEY AUTO_INCREMENT,
+buy_id int NOT NULL,
+item_id int NOT NULL
+)
+
+create table food(
+id int PRIMARY KEY AUTO_INCREMENT,
+name varchar(256) NOT NULL,
+detail text NOT NULL,
+file_name varchar(256) NOT NULL
+)
+
+create table food_best_much(
+id int PRIMARY KEY AUTO_INCREMENT,
+food_id int NOT NULL,
+item_id int NOT NULL
+)</string>
+		<string>create table buy_detail(
+id int PRIMARY KEY AUTO_INCREMENT,
+buy_id int NOT NULL,
+item_id int NOT NULL
+)</string>
+		<string>create table food_best_much(
+id int PRIMARY KEY AUTO_INCREMENT,
+food_id int NOT NULL,
+item_id int NOT NULL
+)</string>
+		<string>create table food(
+id int PRIMARY KEY AUTO_INCREMENT,
+name varchar(256) NOT NULL,
+detail text NOT NULL,
+file_name varchar(256) NOT NULL
+)</string>
+	</array>
+	<key>rdbms_type</key>
+	<string>mysql</string>
+	<key>rdbms_version</key>
+	<string>5.7.28</string>
+	<key>version</key>
+	<integer>1</integer>
+</dict>
+</plist>

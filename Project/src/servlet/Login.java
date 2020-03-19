@@ -59,7 +59,7 @@ public class Login extends HttpServlet {
 		if (user == null) {
 			//ログイン失敗
 			// リクエストスコープにエラーメッセージをセット
-			request.setAttribute("errorMessag", "入力内容に誤りがあります");
+			request.setAttribute("errMsg", "入力内容に誤りがあります");
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 			dispatcher.forward(request, response);
