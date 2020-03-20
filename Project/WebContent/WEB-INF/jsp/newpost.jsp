@@ -59,7 +59,6 @@
 						class="form-check-label" for="inlineRadio1">${category.categoryName}</label>
 				</div>
 			</c:forEach>
-
 		</form>
 	</div>
 </body>

@@ -21,14 +21,6 @@ public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public Login() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -54,6 +46,7 @@ public class Login extends HttpServlet {
 		//パスワードを暗号化
 		password = UserDAO.encryption(password);
 
+		//リクエストパラメータで取得した値を引数にユーザ情報を探す
 		UserDataBeans user = UserDAO.findByLoginInfo(email, password);
 
 		if (user == null) {
@@ -65,8 +58,8 @@ public class Login extends HttpServlet {
 			dispatcher.forward(request, response);
 			return;
 		}
-
 		//ログイン成功
+		//セッションにユーザ情報をセット
 		HttpSession session = request.getSession();
 		session.setAttribute("userInfo", user);
 		//Indexページへリダイレクト

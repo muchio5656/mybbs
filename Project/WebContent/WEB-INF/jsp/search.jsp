@@ -10,7 +10,7 @@
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
 <link href="./assets/css/bbs.css" rel="stylesheet" />
-<title>ワード検索</title>
+<title>ワード検索：【${searchWord}】</title>
 </head>
 <body>
 	<div class="nav">
@@ -39,7 +39,7 @@
 					${errMsg}</div></c:if>
 
 <c:if test="${errMsg == null}">
-		<h3 style="margin: 40px">検索結果：${searchWord}</h3>
+		<h3 style="margin: 40px">検索結果：【${searchWord}】</h3>
 		<div class="th-serch">スレッド検索結果</div>
 		<c:if test="${errMsg1 != null}">
 			<div align="center" class="alert alert-danger" role="alert">【${searchWord}】が含まれる

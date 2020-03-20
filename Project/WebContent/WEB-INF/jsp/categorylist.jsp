@@ -10,7 +10,7 @@
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
 <link href="./assets/css/bbs.css" rel="stylesheet" />
-<title>カテゴリー選択</title>
+<title>カテゴリー別：${categoryName}</title>
 </head>
 <body>
 	<div class="nav">
@@ -34,12 +34,21 @@
 		</ul>
 	</div>
 	<div class="main">
-		<h3 style="margin: 40px">気になるカテゴリーを選んでください</h3>
-
-		<c:forEach var="category" items="${categories}">
-			<a href="CategoryList?id=${category.id}"> <span
-				class="categories">${category.categoryName} /</span>
-			</a>
+		<h3 style="margin: 40px">カテゴリー別：【${categoryName}】</h3>
+		<c:if test="${errMsg != null}">
+			<div align="center" class="alert alert-danger" role="alert">【${categoryName}】${errMsg}</div>
+		</c:if>
+		<c:forEach var="thread" items="${categoryThreads}">
+			<div class="list-line">
+				<a class="list_line_link" href="Show?id=${thread.id}">
+					<div class="list_line_link_title">${thread.title}</div>
+				</a>
+				<div class="list_line_info">
+					<a href="User?id=${thread.userId}"> <span
+						class="list_line_info_container name">${thread.userName}</span></a> <span
+						class="list_line_info_container">${thread.formatCreateDate}</span>
+				</div>
+			</div>
 		</c:forEach>
 	</div>
 </body>

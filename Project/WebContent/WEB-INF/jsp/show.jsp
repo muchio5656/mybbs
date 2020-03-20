@@ -40,36 +40,40 @@
 			<h3 style="margin: 40px">スレッド名:${th.title}</h3>
 		</c:forEach>
 
-<p>カテゴリー</p>
+		<p>カテゴリー</p>
 		<c:forEach var="th" items="${thread}">
-			<a href="Category?id=${th.id}"> <span
+			<a href="CategoryList?id=${th.categoryId}"> <span
 				class="list_line_info_container">${th.categoryName}</span></a>
 		</c:forEach>
-
 		<c:forEach var="post" items="${posts}">
 			<div class="post">
-				<div class="meta"><%! int num = 1; %>
-					<span class="number"><%= num %></span> <span class="name">${post.userName}</span>
+				<div class="meta"><%!int num = 1;%>
+					<span class="number"><%=num%></span> <span class="name">${post.userName}</span>
 					<span class="date">${post.formatCreateDate}</span>
 					<div class="message">
 						<span class="escaped">${post.message}</span>
 					</div>
 				</div>
 			</div>
-			<% num++; %>
+			<%
+				num++;
+			%>
 		</c:forEach>
-		<% num = 1; %>
+		<%
+			num = 1;
+		%>
 		<div class="form-group">
 			<label for="exampleFormControlTextarea1">レスを投稿する</label>
-					<c:forEach begin="0" end="0" var="th" items="${thread}">
+			<c:forEach begin="0" end="0" var="th" items="${thread}">
 
-			<form action="Show?id=${th.id}" method="post">
-				<textarea class="form-control" placeholder="コメント内容" name="message"></textarea>
-				<div class="message_write">
-				<input type="hidden" value="${th.title}" name="title">
-					<button type="submit" class="btn btn-secondary">書き込む</button>
-				</div>
-			</form></c:forEach>
+				<form action="Show?id=${th.id}" method="post">
+					<textarea class="form-control" placeholder="コメント内容" name="message"></textarea>
+					<div class="message_write">
+						<input type="hidden" value="${th.title}" name="title">
+						<button type="submit" class="btn btn-secondary">書き込む</button>
+					</div>
+				</form>
+			</c:forEach>
 		</div>
 	</div>
 </body>

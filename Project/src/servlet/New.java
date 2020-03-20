@@ -36,6 +36,7 @@ public class New extends HttpServlet {
 		String password = request.getParameter("password");
 		String password2 = request.getParameter("password2");
 
+		//email重複がないかチェック
 		boolean check = UserDAO.emailCheck(email);
 
 		//値が間違ってる場合エラーメッセージをセットして新規登録ページへフォワード
@@ -58,10 +59,8 @@ public class New extends HttpServlet {
 
 		request.setAttribute("doneMsg", "新規登録完了");
 
-
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-		dispatcher.forward(request, response);;
+		dispatcher.forward(request, response);
 
 	}
-
 }

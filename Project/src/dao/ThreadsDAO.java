@@ -314,4 +314,108 @@ public class ThreadsDAO {
 		return searchList;
 	}
 
+	public static List<ThreadsDataBeans> categoryThreads(int categoryId) {
+		Connection conn = null;
+		List<ThreadsDataBeans> categorythreads = new ArrayList<ThreadsDataBeans>();
+		try {
+			// データベースへ接続
+			conn = DBManager.getConnection();
+			String sql = "SELECT t.id,t.title,t.user_name,t.create_date,t.user_id " +
+					"FROM thread_category th JOIN category c  ON th.category_id = c.id JOIN " +
+					"threads t ON th.threads_category_id = t.threads_category_id WHERE c.id = ? " +
+					"ORDER BY t.create_date DESC";
+
+			//SELECTを実行し、結果表を取得
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setInt(1, categoryId);
+			ResultSet rs = pStmt.executeQuery();
+
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String title = rs.getString("title");
+				String userName = rs.getString("user_name");
+				Date createDate = rs.getTimestamp("create_date");
+				int userId2 = rs.getInt("user_id");
+
+				ThreadsDataBeans thread = new ThreadsDataBeans(id, title, userName, createDate, userId2);
+
+				categorythreads.add(thread);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			// データベース切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		}
+		return categorythreads;
+	}
+
+	public static String findCategory(int categoryId) {
+		Connection conn = null;
+		String categoryName = "";
+		try {
+			// データベースへ接続
+			conn = DBManager.getConnection();
+			String sql = "SELECT * FROM category WHERE id = ?";
+
+			//SELECTを実行し、結果表を取得
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setInt(1, categoryId);
+			ResultSet rs = pStmt.executeQuery();
+			if (!rs.next()) {
+				return null;
+			}
+			categoryName = rs.getString("category_name");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			// データベース切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		}
+		return categoryName;
+	}
+
+	public static void threadDelete(String threadId) {
+		Connection conn = null;
+
+		try {
+			conn = DBManager.getConnection();
+
+			String sql = "DELETE FROM threads WHERE id = ?";
+
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, threadId);
+			pStmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }

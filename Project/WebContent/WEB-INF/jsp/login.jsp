@@ -18,13 +18,13 @@
 			<h2>ログイン</h2>
 		</div>
 		<c:if test="${errMsg != null}">
-				<div align="center" class="alert alert-danger" role="alert">
-					${errMsg}</div>
-			</c:if>
-			<c:if test="${doneMsg != null}">
-				<div align="center" class="alert alert-warning" role="alert">
-					${doneMsg}</div>
-					</c:if>
+			<div align="center" class="alert alert-danger" role="alert">
+				${errMsg}</div>
+		</c:if>
+		<c:if test="${doneMsg != null}">
+			<div align="center" class="alert alert-warning" role="alert">
+				${doneMsg}</div>
+		</c:if>
 		<form action="Login" method="post">
 			<div class="form-group row col-4 ">
 				<label class="mr-5">メールアドレス</label> <input class="form-control"
@@ -36,9 +36,11 @@
 			</div>
 			<button type="submit" class="btn btn-secondary">ログイン</button>
 		</form>
-		<a href="New">
-		<button type="button" class="btn btn-outline-primary">新規登録</button>
-		</a>
+		<div class="new">
+			<a href="New">
+				<button type="button" class="btn btn-outline-primary">新規登録</button>
+			</a>
+		</div>
 	</div>
 </body>
 </html>

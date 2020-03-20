@@ -1,96 +1,108 @@
-.main{
-    width: 1000px;
-margin-right: auto;
-margin-left : auto;
-
+.main {
+	width: 1000px;
+	margin-right: auto;
+	margin-left: auto;
 }
 
-
-.nav{
-    margin: 10px auto;
-    width: 1000px;
+.nav {
+	margin: 10px auto;
+	width: 1000px;
 }
 
-.td{
-     display: table-cell;
-    vertical-align: middle;
+.td {
+	display: table-cell;
+	vertical-align: middle;
 }
 
-.form-group{
-    margin-right: auto;
-    margin-left : auto;
-
+.form-group {
+	margin-right: auto;
+	margin-left: auto;
 }
 
-.post{
-    margin: 15px;
-    background-color: floralwhite;
-    padding: 10px;
-
-
-}
-.message{
-    padding: 10px;
+.post {
+	margin: 15px;
+	background-color: floralwhite;
+	padding: 10px;
 }
 
-.name{
-
-    padding: 10px;
-    font-weight: 700;
-    color: blueviolet
+.message {
+	padding: 10px;
 }
 
-.uid{
-    padding: 10px
+.name {
+	padding: 10px;
+	font-weight: 700;
+	color: blueviolet
 }
 
-.btn{
-    margin-left : auto;
+.uid {
+	padding: 10px
 }
 
-.list_line_info_container{
-     padding: 10px;
-
+.btn {
+	margin-left: auto;
 }
 
-.list-line{
-        margin: 25px;
-
-                 background-color: floralwhite;
-
+.list_line_info_container {
+	padding: 10px;
 }
 
-.list_line_link_title{
-    font-size: 30px;
-    padding: 10px;
-    font-weight: 700;
+.list-line {
+	margin: 25px;
+	background-color: floralwhite;
 }
 
-.back{
-    padding-left: 350px;
+.list_line_link_title {
+	font-size: 30px;
+	padding: 10px;
+	font-weight: 700;
+	color: #25b328;
+	width: 800px;
 }
-.maine_title{
-    margin: 50px;
 
+.back {
+	padding-left: 350px;
 }
 
-.delete{
-    color: brown;
+.maine_title {
+	margin: 50px;
 }
-.delete_text{
-    padding: 50px;
-    font-size: 25px
-}
-.delete_button{
-display: flex;  }
-.message_write{
-     padding: 20px 0 0 900px;
 
+.delete {
+	color: brown;
 }
-.btn-outline-success{
+
+.delete_text {
+	padding: 50px;
+	font-size: 25px
+}
+
+.message_write {
+	padding: 20px 0 0 900px;
+}
+
+.btn-outline-success {
 	margin-left: 50px;
 }
-.serch-list{
+
+.serch-list {
 	/*  float : left; */
 	background-color: #c6edbd;
+}
+
+.new {
+	padding: 50px;
+}
+
+.categories {
+	padding: 5px;
+	font-size: 25px
+}
+
+.delete-bt {
+	margin-left: 500px;
+}
+
+.delete-bt2 {
+
 }

@@ -16,10 +16,10 @@ import beans.UserDataBeans;
 import dao.ThreadsDAO;
 
 /**
- * Servlet implementation class User
+ * Servlet implementation class CategoryList
  */
-@WebServlet("/User")
-public class User extends HttpServlet {
+@WebServlet("/CategoryList")
+public class CategoryList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -30,23 +30,31 @@ public class User extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		UserDataBeans userInfo = (UserDataBeans) session.getAttribute("userInfo");
+
 		if (userInfo == null) {
 			// ログインセッションがない場合、ログイン画面にリダイレクトさせる
 			response.sendRedirect("Login");
 			return;
 		}
 
+		//ゲットパラメータでcategoryIdを取得
 		String id = request.getParameter("id");
-		int userId = Integer.parseInt(id);
+		int categoryId = Integer.parseInt(id);
 
-		//ユーザーIDを元にスレッドを取得
-		List<ThreadsDataBeans> threads = ThreadsDAO.userThreads(userId);
-		request.setAttribute("threads", threads);
-		//見つからなかった時の処理
-		if (threads == null || threads.size() == 0) {
-			request.setAttribute("errMsg", "が建てたスレッドは存在しません");
+		//カテゴリー名を取得
+		String categoryName =ThreadsDAO.findCategory(categoryId);
+		request.setAttribute("categoryName", categoryName);
+
+		//categoryIdを引数にスレッド情報取得
+		List<ThreadsDataBeans> categoryThreads = ThreadsDAO.categoryThreads(categoryId);
+		if (categoryThreads == null || categoryThreads.size() == 0) {
+			request.setAttribute("errMsg", "に関する投稿はまだありません");
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user.jsp");
+		// リクエストスコープにスレッド情報をセット
+		request.setAttribute("categoryThreads", categoryThreads);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/categorylist.jsp");
 		dispatcher.forward(request, response);
 	}
+
 }

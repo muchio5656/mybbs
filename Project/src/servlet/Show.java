@@ -49,8 +49,7 @@ public class Show extends HttpServlet {
 
 		//レス一覧取得
 		List<PostsDataBeans> posts = PostsDAO.showPosts(i);
-
-		// リクエストスコープにレス１覧情報をセット
+		// リクエストスコープにレス一覧情報をセット
 		request.setAttribute("posts", posts);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/show.jsp");
@@ -64,19 +63,20 @@ public class Show extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
+		//書き込み用情報をセッションから取得
 		HttpSession session = request.getSession();
 		UserDataBeans userInfo = (UserDataBeans) session.getAttribute("userInfo");
 		String userName = userInfo.getName();
 		int userId = userInfo.getId();
 
-
+		//書き込み用情報をパラメータから取得
 		String id = request.getParameter("id");
 		String message = request.getParameter("message");
 		String title = request.getParameter("title");
 
 		int i = Integer.parseInt(id);
 		//新規レス書き込み
-		PostsDAO.newPost(message, userName, i,userId,title);
+		PostsDAO.newPost(message, userName, i, userId, title);
 
 		//スレッド情報取得
 		List<ThreadsDataBeans> thread = ThreadsDAO.showThread(i);
@@ -91,5 +91,4 @@ public class Show extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/show.jsp");
 		dispatcher.forward(request, response);
 	}
-
 }

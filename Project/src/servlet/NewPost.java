@@ -26,14 +26,6 @@ public class NewPost extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public NewPost() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -41,16 +33,15 @@ public class NewPost extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		UserDataBeans userInfo = (UserDataBeans) session.getAttribute("userInfo");
-
 		if (userInfo == null) {
 			// ログインセッションがない場合、ログイン画面にリダイレクトさせる
 			response.sendRedirect("Login");
 			return;
 		}
+
 		//カテゴリーデータ取得
 		List<CategoryDataBeans> categories = ThreadsDAO.findCategory();
-
-		// リクエストスコープにユーザ一覧情報をセット
+		// リクエストスコープにカテゴリ一覧情報をセット
 		request.setAttribute("categories", categories);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/newpost.jsp");
@@ -66,26 +57,29 @@ public class NewPost extends HttpServlet {
 
 		//カテゴライズ処理
 		String[] categoryList = request.getParameterValues("category_list");
+		//カテゴリーが選ばれていなかった場合エラーメッセージ
 		if (categoryList == null) {
 			request.setAttribute("errMsg", "カテゴリーを選んでください");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/newpost.jsp");
 			dispatcher.forward(request, response);
+			return;
 		}
-		//スレッドカテゴリーID制作
+		//スレッドカテゴリーテーブル用のID【TCID】制作
 		int TCID = ThreadsDAO.createTC(categoryList);
 
+		//セッションからユーザー情報取得
 		HttpSession session = request.getSession();
 		UserDataBeans userInfo = (UserDataBeans) session.getAttribute("userInfo");
-
 		String userName = userInfo.getName();
 		int userId = userInfo.getId();
+		//リクエストパラメータでスレタイとレスを取得
 		String title = request.getParameter("title");
 		String message = request.getParameter("message");
 
 		//スレッド制作
 		int newId = ThreadsDAO.createThread(userName, title, TCID, userId);
 		//1レス目の書き込み
-		PostsDAO.newPost(message, userName, newId,userId,title);
+		PostsDAO.newPost(message, userName, newId, userId, title);
 
 		//スレッド情報取得
 		List<ThreadsDataBeans> thread = ThreadsDAO.showThread(newId);
@@ -100,5 +94,4 @@ public class NewPost extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/show.jsp");
 		dispatcher.forward(request, response);
 	}
-
 }

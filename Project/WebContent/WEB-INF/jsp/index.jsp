@@ -43,15 +43,12 @@
 					<div class="list_line_link_title">${thread.title}</div>
 				</a>
 				<div class="list_line_info">
-					<a href="User?id=${thread.userId}">
-					<span class="list_line_info_container name">${thread.userName}</span></a> <span
+					<a href="User?id=${thread.userId}"> <span
+						class="list_line_info_container name">${thread.userName}</span></a> <span
 						class="list_line_info_container">${thread.formatCreateDate}</span>
 				</div>
 			</div>
 		</c:forEach>
 	</div>
-
-
-
 </body>
 </html>

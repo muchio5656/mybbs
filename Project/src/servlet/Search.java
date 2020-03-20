@@ -36,6 +36,7 @@ public class Search extends HttpServlet {
 			return;
 		}
 		String searchWord = request.getParameter("search_word");
+		//検索ワードが未入力だった場合エラ〜メッセージをセット
 		if (searchWord == "") {
 			request.setAttribute("errMsg", "検索ワードを入力してください");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/search.jsp");
@@ -43,18 +44,20 @@ public class Search extends HttpServlet {
 			return;
 		}
 
-		// 新たに検索されたキーワードをセット
+		// 検索されたキーワードをセット
 		request.setAttribute("searchWord", searchWord);
 
 		//検索ワードをもとに、スレッドタイトルから部分一致検索
-
 		List<ThreadsDataBeans> searchThreads = ThreadsDAO.wordSearchThreads(searchWord);
+		//何も見つからなかった時の処理
 		if (searchThreads == null || searchThreads.size() == 0) {
 			request.setAttribute("errMsg1", "スレッドタイトルは見つかりませんでした");
 		}
 		request.setAttribute("searchThreads", searchThreads);
 
+		//検索ワードをもとに、レスから部分一致検索
 		List<PostsDataBeans> searchPosts = PostsDAO.wordSearchPost(searchWord);
+		//何も見つからなかった時の処理
 		if (searchPosts == null || searchPosts.size() == 0) {
 			request.setAttribute("errMsg2", "レスは見つかりませんでした");
 		}
@@ -62,16 +65,5 @@ public class Search extends HttpServlet {
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/search.jsp");
 		dispatcher.forward(request, response);
-
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }

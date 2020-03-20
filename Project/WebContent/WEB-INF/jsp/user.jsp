@@ -34,20 +34,24 @@
 		</ul>
 	</div>
 	<div class="main">
-
 		<h3 style="margin: 40px">${userInfo.name}さんのスレッド一覧</h3>
-
+		<c:if test="${doneMsg != null}">
+			<div align="center" class="alert alert-danger" role="alert">${doneMsg}</div>
+		</c:if>
+		<c:if test="${errMsg != null}">
+			<div align="center" class="alert alert-danger" role="alert">【${userInfo.name}】${errMsg}</div>
+		</c:if>
 		<c:forEach var="thread" items="${threads}">
 			<div class="list-line">
 				<a class="list_line_link" href="Show?id=${thread.id}">
 					<div class="list_line_link_title">${thread.title}</div>
 				</a>
 				<div class="list_line_info">
-					<span class="list_line_info_container">${thread.userName}</span> <span
-						class="list_line_info_container">${thread.formatCreateDate}</span>
-						<c:if test="${thread.userName} == ${userInfo.name}">
-					<a href="Delete?id=${thread.id}"> <span class="delete">削除</span></a>
-					</c:if>
+					<span class="list_line_info_container name">${thread.userName}</span>
+					<span class="list_line_info_container">${thread.formatCreateDate}</span>
+					<a href="Delete?id=${thread.id}">
+						<button type="button" class="btn btn-danger delete-bt">削除</button>
+					</a>
 				</div>
 			</div>
 		</c:forEach>
