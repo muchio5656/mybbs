@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import beans.ThreadsDataBeans;
 import beans.UserDataBeans;
+import dao.ThreadsDAO;
+import dao.UserDAO;
 
 /**
  * Servlet implementation class User
@@ -41,6 +45,16 @@ public class User extends HttpServlet {
 			response.sendRedirect("Login");
 			return;
 		}
+
+		String id = request.getParameter("id");
+		int userId = Integer.parseInt(id);
+
+		UserDataBeans user = UserDAO.userDetail(userId);
+		request.setAttribute("user", user);
+
+		List<ThreadsDataBeans> threads = ThreadsDAO.userThreads(userId);
+		request.setAttribute("threads", threads);
+
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user.jsp");
 		dispatcher.forward(request, response);

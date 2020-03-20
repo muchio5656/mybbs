@@ -32,20 +32,20 @@ public class New extends HttpServlet {
 
 		// リクエストパラメータの入力項目を取得
 		String name = request.getParameter("name");
-		String userId = request.getParameter("userId");
+		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String password2 = request.getParameter("password2");
 
-		boolean check = UserDAO.idCheck(userId);
+		boolean check = UserDAO.emailCheck(email);
 
 		//値が間違ってる場合エラーメッセージをセットして新規登録ページへフォワード
-		if (userId.equals("") || password.equals("") || name.equals("")
+		if (email.equals("") || password.equals("") || name.equals("")
 				|| !(password.equals(password2)) || check) {
 			request.setAttribute("errMsg", "入力された値は正しくありません");
 
 			//入力された値をセット
 			request.setAttribute("name", name);
-			request.setAttribute("userId", userId);
+			request.setAttribute("email", email);
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/new.jsp");
 			dispatcher.forward(request, response);
@@ -54,7 +54,7 @@ public class New extends HttpServlet {
 		//パスワードを暗号化
 		password = UserDAO.encryption(password);
 		// 新規データの登録
-		UserDAO.newUser(userId, password, name);
+		UserDAO.newUser(email, password, name);
 
 		request.setAttribute("doneMsg", "新規登録完了");
 

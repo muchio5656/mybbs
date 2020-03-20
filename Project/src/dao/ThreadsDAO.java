@@ -1,18 +1,16 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import beans.CategoryDataBeans;
-import beans.PostsDataBeans;
 import beans.ThreadsDataBeans;
-import beans.UserDataBeans;
 import database.DBManager;
 
 public class ThreadsDAO {
@@ -98,21 +96,33 @@ public class ThreadsDAO {
 		return TCID;
 	}
 
-	public static void createThread(String userName, String title, int tID) {
+	public static int createThread(String userName, String title, int tID, int userId) {
 
 		Connection conn = null;
+		int newId = 0;
 
 		try {
 			conn = DBManager.getConnection();
 			String sql = "INSERT INTO threads" +
-					"(user_name,title,threads_category_id,create_date,update_date)" +
-					"VALUES(?,?,?,NOW(),NOW())";
+					"(user_name,title,threads_category_id,user_id,create_date,update_date)" +
+					"VALUES(?,?,?,?,NOW(),NOW())";
+
+			String sql2 = "SELECT * FROM threads ORDER BY id DESC LIMIT 1";
 
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, userName);
 			pStmt.setString(2, title);
 			pStmt.setInt(3, tID);
+			pStmt.setInt(4, userId);
 			pStmt.executeUpdate();
+
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql2);
+
+			if (!rs.next()) {
+			}
+			newId = rs.getInt("id");
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -125,62 +135,37 @@ public class ThreadsDAO {
 				}
 			}
 		}
+		return newId;
 	}
 
-	public static void newPost(String message, String userName, int tCID) {
+	public static List<ThreadsDataBeans> showThread(int tCID) {
 		Connection conn = null;
-
-		try {
-			conn = DBManager.getConnection();
-
-			String sql = "INSERT INTO posts" +
-					"(message,user_name,thread_id,create_date,update_date)" +
-					"VALUES(?,?,?,NOW(),NOW())";
-
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, message);
-			pStmt.setString(2, userName);
-			pStmt.setInt(3, tCID);
-			pStmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			// データベース切断
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-
-	public static List<ThreadsDataBeans> showThread(int TID) {
-		Connection conn = null;
-		List<UserDataBeans> userList = new ArrayList<UserDataBeans>();
+		List<ThreadsDataBeans> threadInfo = new ArrayList<ThreadsDataBeans>();
 		try {
 			// データベースへ接続
 			conn = DBManager.getConnection();
-			String sql = "SELECT * FROM posts WHERE thread_id = ? ";
+			String sql = "SELECT t2.id,c.category_name,t1.category_id,t2.title,t2.create_date" +
+					" FROM thread_category t1 JOIN threads t2 ON " +
+					"  t1.threads_category_id = t2.threads_category_id " +
+					"  JOIN category c ON c.id = t1.category_id WHERE t2.id = ?";
 
 			//SELECTを実行し、結果表を取得
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setInt(1, TID);
+			pStmt.setInt(1, tCID);
 			ResultSet rs = pStmt.executeQuery();
 
 			// 結果表に格納されたレコードの内容を
 			// Userインスタンスに設定し、ArrayListインスタンスに追加
 			while (rs.next()) {
-				int id = rs.getInt("id");
-				String message = rs.getString("message");
-				String userName = rs.getString("user_name");
-				String threadid = rs.getString("thread_id");
-				Date createDate = rs.getDate("create_date");
+				int id = rs.getInt("t2.id");
+				String categoryName = rs.getString("c.category_name");
+				int categoryId = rs.getInt("t1.category_id");
+				String title = rs.getString("t2.title");
+				Date createDate = rs.getDate("t2.create_date");
 
-				PostsDataBeans user = new PostsDataBeans(id, message, userName, threadid, createDate);
+				ThreadsDataBeans thread = new ThreadsDataBeans(id, categoryName, categoryId, title, createDate);
 
-				userList.add(user);
+				threadInfo.add(thread);
 
 			}
 		} catch (SQLException e) {
@@ -197,7 +182,136 @@ public class ThreadsDAO {
 				}
 			}
 		}
-		return userList;
+		return threadInfo;
+	}
+
+	public static List<ThreadsDataBeans> threadsList() {
+		Connection conn = null;
+		List<ThreadsDataBeans> threads = new ArrayList<ThreadsDataBeans>();
+		String message = null;
+		try {
+			// データベースへ接続
+			conn = DBManager.getConnection();
+			String sql = " SELECT * FROM threads ORDER BY create_date DESC";
+
+			//SELECTを実行し、結果表を取得
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String title = rs.getString("title");
+				String userName = rs.getString("user_name");
+				Date createDate = rs.getTimestamp("create_date");
+				int userId = rs.getInt("user_id");
+
+				ThreadsDataBeans thread = new ThreadsDataBeans(id, title, userName, createDate, userId);
+
+				threads.add(thread);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			// データベース切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		}
+		return threads;
+	}
+
+	public static List<ThreadsDataBeans> userThreads(int userId) {
+		Connection conn = null;
+		List<ThreadsDataBeans> threads = new ArrayList<ThreadsDataBeans>();
+		try {
+			// データベースへ接続
+			conn = DBManager.getConnection();
+			String sql = " SELECT * FROM threads WHERE user_id = ? ORDER BY create_date DESC";
+
+			//SELECTを実行し、結果表を取得
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setInt(1, userId);
+			ResultSet rs = pStmt.executeQuery();
+
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String title = rs.getString("title");
+				String userName = rs.getString("user_name");
+				Date createDate = rs.getTimestamp("create_date");
+				int userId2 = rs.getInt("user_id");
+
+				ThreadsDataBeans thread = new ThreadsDataBeans(id, title, userName, createDate, userId2);
+
+				threads.add(thread);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			// データベース切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		}
+		return threads;
+	}
+
+	public static List<ThreadsDataBeans> wordSearchThreads(String searchWord) {
+		// キーワード検索
+		Connection conn = null;
+		List<ThreadsDataBeans> searchList = new ArrayList<ThreadsDataBeans>();
+		try {
+			// データベースへ接続
+			conn = DBManager.getConnection();
+			String sql = "SELECT * FROM threads WHERE title like ? ORDER BY create_date DESC";
+
+			//SELECTを実行し、アイテム全データ取得
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, "%" + searchWord + "%");
+			ResultSet rs = pStmt.executeQuery();
+
+			// 結果表に格納されたレコードの内容を
+			// Userインスタンスに設定し、ArrayListインスタンスに追加
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				int userId = rs.getInt("user_id");
+				String name = rs.getString("user_name");
+				String title = rs.getString("title");
+				Date createDate = rs.getTimestamp("create_date");
+
+				ThreadsDataBeans search = new ThreadsDataBeans(id, title, name, createDate, userId);
+
+				searchList.add(search);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			// データベース切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		}
+		return searchList;
 	}
 
 }

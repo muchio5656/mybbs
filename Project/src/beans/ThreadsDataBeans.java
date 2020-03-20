@@ -1,5 +1,6 @@
 package beans;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ThreadsDataBeans {
@@ -8,8 +9,31 @@ public class ThreadsDataBeans {
 	private String userName;
 	private String title;
 	private int threadsCategoryId;
-	private Date createeDate;
+	private int categoryId;
+	private String categoryName;
+	private Date createDate;
 	private Date updatedate;
+	private int userId;
+	private String message;
+
+	public ThreadsDataBeans(int id, String categoryName2, int categoryId2, String title2, Date createDate2) {
+		this.id = id;
+		this.categoryName = categoryName2;
+		this.categoryId = categoryId2;
+		this.title = title2;
+		this.createDate = createDate2;
+	}
+
+	public ThreadsDataBeans(int id, String title2, String userName2, Date createDate2, int userId ) {
+
+		this.id = id;
+		this.title = title2;
+		this.userName = userName2;
+		this.createDate = createDate2;
+		this.userId = userId;
+	}
+
+
 
 	public int getId() {
 		return id;
@@ -43,20 +67,57 @@ public class ThreadsDataBeans {
 		this.threadsCategoryId = threadsCategoryId;
 	}
 
-	public Date getCreateeDate() {
-		return createeDate;
-	}
-
-	public void setCreateeDate(Date createeDate) {
-		this.createeDate = createeDate;
-	}
-
 	public Date getUpdatedate() {
 		return updatedate;
 	}
 
 	public void setUpdatedate(Date updatedate) {
 		this.updatedate = updatedate;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public int getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	public String getFormatCreateDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日HH:mm:ss");
+		return sdf.format(createDate);
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 }

@@ -15,9 +15,7 @@
 <body>
 	<div class="nav">
 		<ul class="nav nav-pills">
-			<li class="nav-item"><a class="nav-link active"
-				href="Index">HOME</a></li>
-
+			<li class="nav-item"><a class="nav-link active" href="Index">HOME</a></li>
 			<li class="nav-item"><a class="nav-link" href="Logout">ログアウト</a>
 			</li>
 			<li class="nav-item"><a class="nav-link" href="NewPost">新規スレッド</a>
@@ -30,61 +28,28 @@
 						name="search_word">
 				</form>
 			</li>
+			<li class="nav-item"><a href="User?id=${userInfo.id}"><button
+						class="btn btn-outline-success" type="button">${userInfo.name}
+						さん</button></a></li>
 		</ul>
 	</div>
 	<div class="main">
 
 		<h3 style="margin: 40px">スレッド一覧</h3>
 
-		<div class="list-line">
-			<a class="list_line_link" href="show.html">
-				<div class="list_line_link_title">みんな集まれ！！！</div>
-			</a>
-			<div class="list_line_info">
-				<span class="list_line_info_container name">俺ちゃん</span> <span
-					class="list_line_info_container">2020年03月16日 07:51</span> <a
-					href="category.html"> <span class="list_line_info_container">野球</span></a>
-
-
+		<c:forEach var="thread" items="${threads}">
+			<div class="list-line">
+				<a class="list_line_link" href="Show?id=${thread.id}">
+					<div class="list_line_link_title">${thread.title}</div>
+				</a>
+				<div class="list_line_info">
+					<a href="User?id=${thread.userId}">
+					<span class="list_line_info_container name">${thread.userName}</span></a> <span
+						class="list_line_info_container">${thread.formatCreateDate}</span>
+				</div>
 			</div>
-
-
-
-		</div>
-		<div class="list-line">
-			<a class="list_line_link" href="show.html">
-				<div class="list_line_link_title">みんな集まれ！！！</div>
-			</a>
-			<div class="list_line_info">
-				<span class="list_line_info_container name">俺ちゃん</span> <span
-					class="list_line_info_container">2020年03月16日 07:51</span> <a
-					href="category.html"> <span class="list_line_info_container">野球</span></a>
-
-
-			</div>
-
-
-
-		</div>
-		<div class="list-line">
-			<a class="list_line_link" href="show.html">
-				<div class="list_line_link_title">みんな集まれ！！！</div>
-			</a>
-			<div class="list_line_info">
-				<span class="list_line_info_container name">俺ちゃん</span> <span
-					class="list_line_info_container">2020年03月16日 07:51</span> <a
-					href="category.html"> <span class="list_line_info_container">野球</span></a>
-
-
-			</div>
-
-
-
-		</div>
-
-
+		</c:forEach>
 	</div>
-
 
 
 

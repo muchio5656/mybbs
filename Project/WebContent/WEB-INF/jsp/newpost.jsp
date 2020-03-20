@@ -16,10 +16,10 @@
 	<div class="nav">
 		<ul class="nav nav-pills">
 			<li class="nav-item"><a class="nav-link active" href="Index">HOME</a></li>
-
 			<li class="nav-item"><a class="nav-link" href="Logout">ログアウト</a>
 			</li>
-			<li class="nav-item"><a class="nav-link" href="New">新規スレッド</a></li>
+			<li class="nav-item"><a class="nav-link" href="NewPost">新規スレッド</a>
+			</li>
 			<li class="nav-item"><a class="nav-link" href="Category"
 				aria-disabled="true">カテゴリーで探す</a></li>
 			<li class="nav-item">
@@ -28,9 +28,9 @@
 						name="search_word">
 				</form>
 			</li>
-			<li class="nav-item"><a class="nav-link" href="User"
-				aria-disabled="true">${userInfo.name}さん</a></li>
-			<li class="nav-item">
+			<li class="nav-item"><a href="User?id=${userInfo.id}"><button
+						class="btn btn-outline-success" type="button">${userInfo.name}
+						さん</button></a></li>
 		</ul>
 	</div>
 	<div class="main">
@@ -39,23 +39,26 @@
 
 		<form action="NewPost" method="post">
 			<div class="form-group row col-4 ">
-				<label class="mr-5">スレッドタイトル</label> <input
-					name="title" class="form-control thread_title" type="text">
+				<label class="mr-5">スレッドタイトル</label> <input name="title"
+					class="form-control thread_title" type="text">
 			</div>
 			<div class="form-group">
 				<label for="exampleFormControlTextarea1">レス</label>
-				<textarea class="form-control" placeholder="１つ目のレスを書き込もう" name="message"></textarea>
+				<textarea class="form-control" placeholder="１つ目のレスを書き込もう"
+					name="message"></textarea>
 				<div class="message_write">
 					<button type="submit" class="btn btn-secondary">書き込む</button>
 				</div>
 			</div>
 			<div class="check_box_totle">カテゴリーを選択してください</div>
-						<c:forEach var="category" items="${categories}">
+			<c:forEach var="category" items="${categories}">
 
-			<div class="form-check form-check-inline">
-  <input class="form-check-input" type="checkbox" name="category_list" value="${category.id}" >
-  <label class="form-check-label" for="inlineRadio1">${category.categoryName}</label>
-</div></c:forEach>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox"
+						name="category_list" value="${category.id}"> <label
+						class="form-check-label" for="inlineRadio1">${category.categoryName}</label>
+				</div>
+			</c:forEach>
 
 		</form>
 	</div>

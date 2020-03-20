@@ -17,14 +17,14 @@ import database.DBManager;
 public class UserDAO {
 
 	//ログイン
-	public static UserDataBeans findByLoginInfo(String userId, String password) {
+	public static UserDataBeans findByLoginInfo(String email, String password) {
 		Connection conn = null;
 		try {
 			conn = DBManager.getConnection();
-			String sql = "SELECT * FROM user WHERE user_id = ? and password = ?";
+			String sql = "SELECT * FROM user WHERE email = ? and password = ?";
 
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, userId);
+			pStmt.setString(1, email);
 			pStmt.setString(2, password);
 			ResultSet rs = pStmt.executeQuery();
 
@@ -68,15 +68,15 @@ public class UserDAO {
 	}
 
 	//user id重複チェック
-	public static boolean idCheck(String userId) {
+	public static boolean emailCheck(String email) {
 		Connection conn = null;
 		try {
 			conn = DBManager.getConnection();
 
-			String sql = "SELECT * FROM user WHERE user_id = ?";
+			String sql = "SELECT * FROM user WHERE email = ?";
 
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, userId);
+			pStmt.setString(1, email);
 			ResultSet rs = pStmt.executeQuery();
 
 			if (!rs.next()) {
@@ -100,15 +100,15 @@ public class UserDAO {
 		}
 	}
 
-	public static void newUser(String userId, String password, String name) {
+	public static void newUser(String email, String password, String name) {
 		Connection conn = null;
 		try {
 			conn = DBManager.getConnection();
-			String sql = "INSERT INTO user (name,user_id,password,create_date,update_date) VALUES (?,?,?,NOW(),NOW())";
+			String sql = "INSERT INTO user (name,email,password,create_date,update_date) VALUES (?,?,?,NOW(),NOW())";
 
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, name);
-			pStmt.setString(2, userId );
+			pStmt.setString(2, email );
 			pStmt.setString(3, password);
 
 			pStmt.executeUpdate();
@@ -125,5 +125,10 @@ public class UserDAO {
 			}
 		}
 
+	}
+
+	public static UserDataBeans userDetail(int i) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
 	}
 }

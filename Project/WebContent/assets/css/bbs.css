@@ -19,22 +19,22 @@ margin-left : auto;
 .form-group{
     margin-right: auto;
     margin-left : auto;
-    
+
 }
 
 .post{
     margin: 15px;
     background-color: floralwhite;
     padding: 10px;
-    
-    
+
+
 }
 .message{
     padding: 10px;
 }
 
 .name{
-    
+
     padding: 10px;
     font-weight: 700;
     color: blueviolet
@@ -71,7 +71,7 @@ margin-left : auto;
 }
 .maine_title{
     margin: 50px;
-    
+
 }
 
 .delete{
@@ -85,5 +85,12 @@ margin-left : auto;
 display: flex;  }
 .message_write{
      padding: 20px 0 0 900px;
-    
+
+}
+.btn-outline-success{
+	margin-left: 50px;
+}
+.serch-list{
+	/*  float : left; */
+	background-color: #c6edbd;
 }

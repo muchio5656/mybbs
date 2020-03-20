@@ -27,8 +27,8 @@
 					</c:if>
 		<form action="Login" method="post">
 			<div class="form-group row col-4 ">
-				<label class="mr-5">ユーザーID</label> <input class="form-control"
-					name="userId" type="text">
+				<label class="mr-5">メールアドレス</label> <input class="form-control"
+					name="email" type="email">
 			</div>
 			<div class="form-group row col-4">
 				<label class="mr-5">パスワード</label> <input class="form-control"

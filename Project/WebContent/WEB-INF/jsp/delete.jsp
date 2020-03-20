@@ -11,15 +11,13 @@
 </head>
 	<body>
        <div class="nav">
-      <ul class="nav nav-pills">
-			<li class="nav-item"><a class="nav-link active"
-				href="Index">HOME</a></li>
-
+		<ul class="nav nav-pills">
+			<li class="nav-item"><a class="nav-link active" href="Index">HOME</a></li>
 			<li class="nav-item"><a class="nav-link" href="Logout">ログアウト</a>
 			</li>
-			<li class="nav-item"><a class="nav-link" href="New">新規スレッド</a>
+			<li class="nav-item"><a class="nav-link" href="NewPost">新規スレッド</a>
 			</li>
-			<li class="nav-item"><a class="nav-link" href="Categoy"
+			<li class="nav-item"><a class="nav-link" href="Category"
 				aria-disabled="true">カテゴリーで探す</a></li>
 			<li class="nav-item">
 				<form action="Search">
@@ -27,8 +25,12 @@
 						name="search_word">
 				</form>
 			</li>
+			<li class="nav-item"><a href="User?id=${userInfo.id}"><button
+						class="btn btn-outline-success" type="button">${userInfo.name}
+						さん</button></a></li>
 		</ul>
-        </div>
+	</div>
+	</div>
          <div class="main">
 
     <h3 style="margin: 40px" >削除確認</h3>

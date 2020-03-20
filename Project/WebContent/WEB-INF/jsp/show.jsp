@@ -4,22 +4,23 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-	<meta charset="UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-      <link href="./assets/css/bbs.css" rel="stylesheet" />
-	<title>みんな集まれ</title>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<link href="./assets/css/bbs.css" rel="stylesheet" />
+<title>みんな集まれ</title>
 </head>
-	<body>
-       <div class="nav">
-       <ul class="nav nav-pills">
-			<li class="nav-item"><a class="nav-link active"
-				href="Index">HOME</a></li>
-
+<body>
+	<div class="nav">
+		<ul class="nav nav-pills">
+			<li class="nav-item"><a class="nav-link active" href="Index">HOME</a></li>
 			<li class="nav-item"><a class="nav-link" href="Logout">ログアウト</a>
 			</li>
-			<li class="nav-item"><a class="nav-link" href="New">新規スレッド</a>
+			<li class="nav-item"><a class="nav-link" href="NewPost">新規スレッド</a>
 			</li>
-			<li class="nav-item"><a class="nav-link" href="Categoy"
+			<li class="nav-item"><a class="nav-link" href="Category"
 				aria-disabled="true">カテゴリーで探す</a></li>
 			<li class="nav-item">
 				<form action="Search">
@@ -27,78 +28,49 @@
 						name="search_word">
 				</form>
 			</li>
+			<li class="nav-item"><a href="User?id=${userInfo.id}"><button
+						class="btn btn-outline-success" type="button">${userInfo.name}
+						さん</button></a></li>
 		</ul>
-        </div>
-         <div class="main">
+	</div>
+	<div class="main">
 
-    <h3 style="margin: 40px" >スレッド名：みんな集まれ</h3>
-              <a href="category.html">
-           <span class="list_line_info_container">野球</span></a>
-              <a href="category.html">
-           <span class="list_line_info_container">実況</span></a>
-              <a href="category.html">
-           <span class="list_line_info_container">なんでも</span></a>
+		<c:forEach begin="0" end="0" var="th" items="${thread}">
 
+			<h3 style="margin: 40px">スレッド名:${th.title}</h3>
+		</c:forEach>
 
+<p>カテゴリー</p>
+		<c:forEach var="th" items="${thread}">
+			<a href="Category?id=${th.id}"> <span
+				class="list_line_info_container">${th.categoryName}</span></a>
+		</c:forEach>
 
-             <div class="post">
-            <div class="meta">
-            <span class="number">1</span>
-             <span class="name">俺ちゃん</span>
-             <span class="date">2020/03/14(土) 18:42.52.06</span>
-             <span class="uid">ID:12345</span>
-                 <div class="message">
-                     <span class="escaped">まじか</span>
-                </div>
-                 </div>
+		<c:forEach var="post" items="${posts}">
+			<div class="post">
+				<div class="meta"><%! int num = 1; %>
+					<span class="number"><%= num %></span> <span class="name">${post.userName}</span>
+					<span class="date">${post.formatCreateDate}</span>
+					<div class="message">
+						<span class="escaped">${post.message}</span>
+					</div>
+				</div>
+			</div>
+			<% num++; %>
+		</c:forEach>
+		<% num = 1; %>
+		<div class="form-group">
+			<label for="exampleFormControlTextarea1">レスを投稿する</label>
+					<c:forEach begin="0" end="0" var="th" items="${thread}">
 
-
-             </div>
-
-
-             <div class="post" >
-            <div class="meta">
-            <span class="number">1</span>
-             <span class="name">俺ちゃん</span>
-             <span class="date">2020/03/14(土) 18:42.52.06</span>
-             <span class="uid">ID:12345</span>
-                 <div class="message">
-                     <span class="escaped">まじか</span>
-                </div>
-                 </div>
-
-
-             </div>
-
-
-             <div class="post" >
-            <div class="meta">
-            <span class="number">1</span>
-             <span class="name">俺ちゃん</span>
-             <span class="date">2020/03/14(土) 18:42.52.06</span>
-             <span class="uid">ID:12345</span>
-                 <div class="message">
-                     <span class="escaped">まじか</span>
-                </div>
-                 </div>
-             </div>
-
-             <div class="form-group">
-    <label for="exampleFormControlTextarea1">レスを投稿する</label>
-                 <form action="" method="post">
-    <textarea class="form-control"　placeholder="コメント内容"　name="message"></textarea>
-                     <div class="message_write">
-                         <button type="submit" class="btn btn-secondary">書き込む</button></div>
-
-                     </form>
-  </div>
-
-
-
-
-              </div>
-
-
-
-	</body>
+			<form action="Show?id=${th.id}" method="post">
+				<textarea class="form-control" placeholder="コメント内容" name="message"></textarea>
+				<div class="message_write">
+				<input type="hidden" value="${th.title}" name="title">
+					<button type="submit" class="btn btn-secondary">書き込む</button>
+				</div>
+			</form></c:forEach>
+		</div>
+	</div>
+</body>
 </html>

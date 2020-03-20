@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.CategoryDataBeans;
+import beans.PostsDataBeans;
 import beans.ThreadsDataBeans;
 import beans.UserDataBeans;
+import dao.PostsDAO;
 import dao.ThreadsDAO;
 
 /**
@@ -62,10 +64,9 @@ public class NewPost extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-
 		//カテゴライズ処理
 		String[] categoryList = request.getParameterValues("category_list");
-		if(categoryList == null) {
+		if (categoryList == null) {
 			request.setAttribute("errMsg", "カテゴリーを選んでください");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/newpost.jsp");
 			dispatcher.forward(request, response);
@@ -77,19 +78,24 @@ public class NewPost extends HttpServlet {
 		UserDataBeans userInfo = (UserDataBeans) session.getAttribute("userInfo");
 
 		String userName = userInfo.getName();
+		int userId = userInfo.getId();
 		String title = request.getParameter("title");
 		String message = request.getParameter("message");
 
 		//スレッド制作
-		ThreadsDAO.createThread(userName,title,TCID);
+		int newId = ThreadsDAO.createThread(userName, title, TCID, userId);
+		//1レス目の書き込み
+		PostsDAO.newPost(message, userName, newId,userId,title);
 
-		//1レス目の書き込みとShowへのフォワード
+		//スレッド情報取得
+		List<ThreadsDataBeans> thread = ThreadsDAO.showThread(newId);
+		// リクエストスコープにスレッド情報をセット
+		request.setAttribute("thread", thread);
 
-		 ThreadsDAO.newPost(message,userName,TCID);
-
-		//スレ詳細取得
-		List<ThreadsDataBeans> thread = ThreadsDAO.showThread(TCID);
-
+		//レス一覧取得
+		List<PostsDataBeans> posts = PostsDAO.showPosts(newId);
+		// リクエストスコープにレス１覧情報をセット
+		request.setAttribute("posts", posts);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/show.jsp");
 		dispatcher.forward(request, response);

@@ -48,13 +48,13 @@ public class Login extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		//リクエストパラメータを取得
-		String userId = request.getParameter("userId");
+		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 
 		//パスワードを暗号化
 		password = UserDAO.encryption(password);
 
-		UserDataBeans user = UserDAO.findByLoginInfo(userId, password);
+		UserDataBeans user = UserDAO.findByLoginInfo(email, password);
 
 		if (user == null) {
 			//ログイン失敗
